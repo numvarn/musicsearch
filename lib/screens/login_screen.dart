@@ -34,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
               contentPadding: EdgeInsets.only(top: 14.0),
               prefixIcon: Icon(
                 Icons.email,
-                color: Colors.white,
+                color: Colors.red,
               ),
               hintText: 'Enter your Email',
               hintStyle: kHintTextStyle,
@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
               contentPadding: EdgeInsets.only(top: 14.0),
               prefixIcon: Icon(
                 Icons.lock,
-                color: Colors.white,
+                color: Colors.yellow,
               ),
               hintText: 'Enter your Password',
               hintStyle: kHintTextStyle,
@@ -100,11 +100,12 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Row(
         children: <Widget>[
           Theme(
-            data: ThemeData(unselectedWidgetColor: Colors.white),
+            data: ThemeData(unselectedWidgetColor: Colors.blueAccent),
             child: Checkbox(
               value: _rememberMe,
-              checkColor: Colors.green,
-              activeColor: Colors.white,
+              checkColor: Colors.blue,
+              activeColor: Colors.white38,
+      
               onChanged: (value) {
                 setState(() {
                   _rememberMe = value;
@@ -132,11 +133,11 @@ class _LoginScreenState extends State<LoginScreen> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
-        color: Colors.white,
+        color: Colors.blueAccent,
         child: Text(
           'LOGIN',
           style: TextStyle(
-            color: Color(0xFF527DAA),
+            color: Colors.white,
             letterSpacing: 1.5,
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
@@ -150,18 +151,18 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _buildSignInWithText() {
     return Column(
       children: <Widget>[
-        Text(
-          '- OR -',
+          RaisedButton(
+        onPressed: () => print('Sign in'),
+        color: Colors.white,
+        child: Text(
+          'Sign in',
           style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w400,
+            color: Colors.black,
+            fontSize: 18.0,
+            fontFamily: 'OpenSans',
           ),
         ),
-        SizedBox(height: 20.0),
-        Text(
-          'Sign in with',
-          style: kLabelStyle,
-        ),
+      ),
       ],
     );
   }
@@ -230,7 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
             TextSpan(
               text: 'Sign Up',
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.blueAccent,
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
               ),
@@ -258,10 +259,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
-                      Color(0xFF73AEF5),
-                      Color(0xFF61A4F1),
-                      Color(0xFF478DE0),
-                      Color(0xFF398AE5),
+                      Colors.white70,
+                      Colors.white70,
+                      Colors.white70,
+                      Colors.white70,
                     ],
                     stops: [0.1, 0.4, 0.7, 0.9],
                   ),
@@ -279,9 +280,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        'Sign In',
+                        'MusicSearch',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.blueAccent,
                           fontFamily: 'OpenSans',
                           fontSize: 30.0,
                           fontWeight: FontWeight.bold,
