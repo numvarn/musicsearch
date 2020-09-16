@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:musicsearch/utilities/constants.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
+
+import 'Register.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -15,7 +18,7 @@ class _LoginScreenState extends State<LoginScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Email',
+          'อีเมล',
           style: kLabelStyle,
         ),
         SizedBox(height: 10.0),
@@ -36,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Icons.email,
                 color: Colors.red,
               ),
-              hintText: 'Enter your Email',
+              hintText: 'กรอกอีเมลผู้ใช้',
               hintStyle: kHintTextStyle,
             ),
           ),
@@ -50,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Password',
+          'รหัสผ่าน',
           style: kLabelStyle,
         ),
         SizedBox(height: 10.0),
@@ -71,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 Icons.lock,
                 color: Colors.yellow,
               ),
-              hintText: 'Enter your Password',
+              hintText: 'ป้อนรหัสผ่าน',
               hintStyle: kHintTextStyle,
             ),
           ),
@@ -87,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
         onPressed: () => print('Forgot Password Button Pressed'),
         padding: EdgeInsets.only(right: 0.0),
         child: Text(
-          'Forgot Password?',
+          'ลืมรหัสผ่าน',
           style: kLabelStyle,
         ),
       ),
@@ -114,7 +117,7 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
           Text(
-            'Remember me',
+            'จำรหัสของฉันไว้',
             style: kLabelStyle,
           ),
         ],
@@ -124,18 +127,14 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildLoginBtn() {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 25.0),
+      padding: EdgeInsets.symmetric(vertical: 10.0),
       width: double.infinity,
-      child: RaisedButton(
+      child: RoundedLoadingButton(
         elevation: 5.0,
         onPressed: () => print('Login Button Pressed'),
-        padding: EdgeInsets.all(15.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
-        ),
         color: Colors.blueAccent,
         child: Text(
-          'LOGIN',
+          'ล็อกอิน',
           style: TextStyle(
             color: Colors.white,
             letterSpacing: 1.5,
@@ -149,21 +148,26 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _buildSignInWithText() {
-    return Column(
-      children: <Widget>[
-          RaisedButton(
-        onPressed: () => print('Sign in'),
-        color: Colors.white,
+    return Container(
+    padding: EdgeInsets.symmetric(vertical: 10.0),
+      width: double.infinity,
+      child: RoundedLoadingButton(
+        elevation: 5.0,
+      onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Register()),);
+        },
+        color: Colors.blueAccent,
         child: Text(
-          'Sign in',
+          'ลงทะเบียนผู้ใช้ใหม่',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
+            letterSpacing: 1.5,
             fontSize: 18.0,
+            fontWeight: FontWeight.bold,
             fontFamily: 'OpenSans',
           ),
         ),
       ),
-      ],
     );
   }
 
@@ -193,7 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _buildSocialBtnRow() {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 30.0),
+      padding: EdgeInsets.symmetric(vertical: 10.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
@@ -311,3 +315,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+
