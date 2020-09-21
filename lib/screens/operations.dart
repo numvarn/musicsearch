@@ -96,7 +96,7 @@ class _OperationPageState extends State<OperationPage> {
       child: Scaffold(
         drawer: NavDrawer(),
         appBar: AppBar(
-          title: Text('ศรีสะเกษสู้โควิด 19', style: style),
+          title: Text('Music Search', style: style),
         ),
         body: SingleChildScrollView(
           child: Column(
