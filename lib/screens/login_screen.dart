@@ -1,318 +1,202 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:http/http.dart' as Http;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:musicsearch/utilities/constants.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:musicsearch/utilities/authenFileProcess.dart';
+import 'package:musicsearch/utilities/operations.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import 'Register.dart';
 
 class LoginScreen extends StatefulWidget {
+  LoginScreen({Key key}) : super(key: key);
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  bool _rememberMe = false;
+  final RoundedLoadingButtonController _btnController = new RoundedLoadingButtonController();
 
-  Widget _buildEmailTF() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'อีเมล',
-          style: kLabelStyle,
-        ),
-        SizedBox(height: 10.0),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextField(
-            keyboardType: TextInputType.emailAddress,
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'OpenSans',
-            ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
-                Icons.email,
-                color: Colors.red,
-              ),
-              hintText: 'กรอกอีเมลผู้ใช้',
-              hintStyle: kHintTextStyle,
-            ),
+  // TextField Controller
+  TextEditingController emailController = new TextEditingController();
+  TextEditingController passwordController = new TextEditingController();
+
+  TextStyle style = GoogleFonts.prompt(
+    fontSize: 20,
+  );
+
+  TextStyle styleButton = GoogleFonts.prompt(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+  );
+
+  Future<bool> _onWillPop() async {
+    return (await showDialog(
+      context: context,
+      builder: (context) => new AlertDialog(
+        title: new Text('หยุดการทำงานโปรแกรม'),
+        content: new Text('คุณต้องการหยุดการทำงานโปรแกรม ?'),
+        actions: <Widget>[
+          new FlatButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: new Text('ไม่ใช่'),
           ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildPasswordTF() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          'รหัสผ่าน',
-          style: kLabelStyle,
-        ),
-        SizedBox(height: 10.0),
-        Container(
-          alignment: Alignment.centerLeft,
-          decoration: kBoxDecorationStyle,
-          height: 60.0,
-          child: TextField(
-            obscureText: true,
-            style: TextStyle(
-              color: Colors.white,
-              fontFamily: 'OpenSans',
-            ),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: EdgeInsets.only(top: 14.0),
-              prefixIcon: Icon(
-                Icons.lock,
-                color: Colors.yellow,
-              ),
-              hintText: 'ป้อนรหัสผ่าน',
-              hintStyle: kHintTextStyle,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildForgotPasswordBtn() {
-    return Container(
-      alignment: Alignment.centerRight,
-      child: FlatButton(
-        onPressed: () => print('Forgot Password Button Pressed'),
-        padding: EdgeInsets.only(right: 0.0),
-        child: Text(
-          'ลืมรหัสผ่าน',
-          style: kLabelStyle,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildRememberMeCheckbox() {
-    return Container(
-      height: 20.0,
-      child: Row(
-        children: <Widget>[
-          Theme(
-            data: ThemeData(unselectedWidgetColor: Colors.blueAccent),
-            child: Checkbox(
-              value: _rememberMe,
-              checkColor: Colors.blue,
-              activeColor: Colors.white38,
-      
-              onChanged: (value) {
-                setState(() {
-                  _rememberMe = value;
-                });
-              },
-            ),
-          ),
-          Text(
-            'จำรหัสของฉันไว้',
-            style: kLabelStyle,
+          new FlatButton(
+            onPressed: () => exit(0), //Navigator.of(context).pop(true),
+            child: new Text('ใช่'),
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildLoginBtn() {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 10.0),
-      width: double.infinity,
-      child: RoundedLoadingButton(
-        elevation: 5.0,
-        onPressed: () => print('Login Button Pressed'),
-        color: Colors.blueAccent,
-        child: Text(
-          'ล็อกอิน',
-          style: TextStyle(
-            color: Colors.white,
-            letterSpacing: 1.5,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'OpenSans',
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSignInWithText() {
-    return Container(
-    padding: EdgeInsets.symmetric(vertical: 10.0),
-      width: double.infinity,
-      child: RoundedLoadingButton(
-        elevation: 5.0,
-      onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Register()),);
-        },
-        color: Colors.blueAccent,
-        child: Text(
-          'ลงทะเบียนผู้ใช้ใหม่',
-          style: TextStyle(
-            color: Colors.white,
-            letterSpacing: 1.5,
-            fontSize: 18.0,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'OpenSans',
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSocialBtn(Function onTap, AssetImage logo) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        height: 60.0,
-        width: 60.0,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black26,
-              offset: Offset(0, 2),
-              blurRadius: 6.0,
-            ),
-          ],
-          image: DecorationImage(
-            image: logo,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSocialBtnRow() {
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          _buildSocialBtn(
-            () => print('Login with Facebook'),
-            AssetImage(
-              'assets/logos/facebook.jpg',
-            ),
-          ),
-          _buildSocialBtn(
-            () => print('Login with Google'),
-            AssetImage(
-              'assets/logos/google.jpg',
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildSignupBtn() {
-    return GestureDetector(
-      onTap: () => print('Sign Up Button Pressed'),
-      child: RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(
-              text: 'Don\'t have an Account? ',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-            TextSpan(
-              text: 'Sign Up',
-              style: TextStyle(
-                color: Colors.blueAccent,
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    )) ?? false;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.light,
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Stack(
-            children: <Widget>[
-              Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.white70,
-                      Colors.white70,
-                      Colors.white70,
-                      Colors.white70,
-                    ],
-                    stops: [0.1, 0.4, 0.7, 0.9],
-                  ),
-                ),
-              ),
-              Container(
-                height: double.infinity,
-                child: SingleChildScrollView(
-                  physics: AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 40.0,
-                    vertical: 120.0,
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'MusicSearch',
-                        style: TextStyle(
-                          color: Colors.blueAccent,
-                          fontFamily: 'OpenSans',
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 30.0),
-                      _buildEmailTF(),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      _buildPasswordTF(),
-                      _buildForgotPasswordBtn(),
-                      _buildRememberMeCheckbox(),
-                      _buildLoginBtn(),
-                      _buildSignInWithText(),
-                      _buildSocialBtnRow(),
-                      _buildSignupBtn(),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
+
+    final emailField = TextField(
+      controller: emailController,
+      obscureText: false,
+      style: style,
+      decoration: InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+          hintText: "ชื่อผู้ใช้ระบบ/อีเมล",
+          border:
+          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+    );
+
+    final passwordField = TextField(
+      controller: passwordController,
+      obscureText: true,
+      style: style,
+      decoration: InputDecoration(
+          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+          hintText: "รหัสผ่าน",
+          border:
+          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+    );
+
+    final loginButton = RoundedLoadingButton(
+        child: Text("เข้าสู่ระบบ",
+            textAlign: TextAlign.center,
+            style: styleButton,
+        ),
+        controller: _btnController,
+        width: MediaQuery.of(context).size.width,
+        color: Colors.pinkAccent,
+        onPressed: () {
+          _signIn();
+        },
+    );
+
+    final registerButton = Material(
+      elevation: 2.0,
+      borderRadius: BorderRadius.circular(30.0),
+      color: Colors.lightBlue,
+      child: MaterialButton(
+        minWidth: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => Register()),);
+        },
+        child: Text(
+            "ลงทะเบียนผู้ใช้งานใหม่",
+            textAlign: TextAlign.center,
+            style: styleButton
         ),
       ),
     );
+
+    return WillPopScope(
+        onWillPop: _onWillPop,
+        child:Scaffold(
+          appBar: AppBar(
+            title: Text('เช้าใช้งานระบบ', style: style),
+            automaticallyImplyLeading: false,
+            backgroundColor: Colors.pinkAccent
+          ),
+
+          body: Center(
+            child: SingleChildScrollView (
+              padding: const EdgeInsets.all(36.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    height: 180.0,
+                    child: Image.asset(
+                      "assets/logos/music.png",
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  SizedBox(height: 20.0),
+                  emailField,
+                  SizedBox(height: 25.0),
+                  passwordField,
+                  SizedBox(height: 35.0),
+                  loginButton,
+                  SizedBox(height: 15.0),
+                  registerButton,
+                  SizedBox(height: 15.0),
+                ],
+              ),
+            ),
+          ),
+        ),
+    );
+  }
+
+  void _signIn() async {
+    var url = "https://lyric-sskru.herokuapp.com/api/login";
+
+    Map<String, String> data = {
+      "username":emailController.text.trim(),
+      "password":passwordController.text.trim()
+    };
+
+    if(emailController.text.trim() != "" && passwordController.text.trim() != "") {
+      var response = await Http.post(url, body:data);
+
+      final responseJson = json.decode(response.body);
+      if(responseJson['token'] != null) {
+        String data = '{"token": "${responseJson['token']}"}';
+
+        AuthenFileProcess authenFileProcess = new AuthenFileProcess();
+        authenFileProcess.writeToken(data);
+
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => OperationPage())
+        );
+      } else {
+        _showAlertLoginFail(context);
+        _btnController.stop();
+      }
+    } else {
+      _showAlertLoginFail(context);
+      _btnController.stop();
+    }
+  }
+
+  void _showAlertLoginFail(BuildContext context) {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => AlertDialog(
+          title: Text("Invalid Username/Password"),
+          content: Text("Please, check your username or password"),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+            )
+          ],
+        )
+    );
   }
 }
-

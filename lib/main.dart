@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               height: 180.0,
               child: Image.asset(
-                "assets/images/logo.png",
+                "assets/images/music.png",
                 fit: BoxFit.contain,
               ),
             ),

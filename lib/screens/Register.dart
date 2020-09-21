@@ -78,7 +78,7 @@ class Register extends StatelessWidget {
     final regisButon = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Colors.lightBlue,
+      color: Colors.pinkAccent,
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -136,7 +136,7 @@ class Register extends StatelessWidget {
 
       pr.show();
 
-      var url = "https://ssk-covid19.herokuapp.com/api/regis";
+      var url = "http://lyric-sskru.herokuapp.com/api/regis";
 
       Map<String, String> data = {
         "first_name": firstNameController.text.trim(),
