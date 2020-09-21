@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
 import 'package:http/http.dart' as Http;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -62,6 +64,10 @@ class _LoginScreenState extends State<LoginScreen> {
       style: style,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+          prefixIcon: Icon(
+                Icons.email,
+                color: Colors.redAccent,
+              ),
           hintText: "ชื่อผู้ใช้ระบบ/อีเมล",
           border:
           OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
@@ -73,6 +79,10 @@ class _LoginScreenState extends State<LoginScreen> {
       style: style,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+           prefixIcon: Icon(
+                Icons.lock,
+                color: Colors.yellowAccent,
+              ),
           hintText: "รหัสผ่าน",
           border:
           OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
@@ -108,7 +118,54 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+    
+    Widget _buildSocialBtn(Function onTap, AssetImage logo) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 60.0,
+        width: 60.0,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black26,
+              offset: Offset(0, 2),
+              blurRadius: 10.0,
+            ),
+          ],
+          image: DecorationImage(
+            image: logo,
+          ),
+        ),
+      ),
+    );
+  }
 
+    Widget _buildSocialBtnRow() {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 0.5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          _buildSocialBtn(
+            () => print('Login with Facebook'),
+            AssetImage(
+              'assets/logos/facebook.jpg',
+            ),
+          ),
+          _buildSocialBtn(
+            () => print('Login with Google'),
+            AssetImage(
+              'assets/logos/google.jpg',
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+  
     return WillPopScope(
         onWillPop: _onWillPop,
         child:Scaffold(
@@ -141,6 +198,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 15.0),
                   registerButton,
                   SizedBox(height: 15.0),
+                  _buildSocialBtnRow(),
+                  SizedBox(height: 15.0),
+                 
                 ],
               ),
             ),
