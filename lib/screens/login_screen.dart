@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter_signin_button/button_list.dart';
-import 'package:flutter_signin_button/button_view.dart';
 import 'package:http/http.dart' as Http;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -97,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       controller: _btnController,
       width: MediaQuery.of(context).size.width,
-      color: Colors.pinkAccent,
+      color: Colors.green,
       onPressed: () {
         _signIn();
       },
@@ -171,13 +169,9 @@ class _LoginScreenState extends State<LoginScreen> {
     return WillPopScope(
       onWillPop: _onWillPop,
       child: Scaffold(
-        appBar: AppBar(
-            title: Text('เช้าใช้งานระบบ', style: style),
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.pinkAccent),
         body: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(36.0),
+            padding: const EdgeInsets.all(31.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,

@@ -36,6 +36,10 @@ class Register extends StatelessWidget {
       obscureText: false,
       style: style,
       decoration: InputDecoration(
+        prefixIcon: Icon(
+            Icons.account_circle,
+            color: Colors.blueAccent,
+          ),
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "ชื่อจริง",
           border:
@@ -47,6 +51,10 @@ class Register extends StatelessWidget {
       obscureText: false,
       style: style,
       decoration: InputDecoration(
+        prefixIcon: Icon(
+            Icons.account_circle,
+            color: Colors.blueAccent,
+          ),
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "นามสกุล",
           border:
@@ -58,6 +66,10 @@ class Register extends StatelessWidget {
       obscureText: false,
       style: style,
       decoration: InputDecoration(
+        prefixIcon: Icon(
+            Icons.email,
+            color: Colors.redAccent,
+          ),
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "อีเมล",
           border:
@@ -69,6 +81,10 @@ class Register extends StatelessWidget {
       obscureText: true,
       style: style,
       decoration: InputDecoration(
+         prefixIcon: Icon(
+            Icons.lock,
+            color: Colors.yellow,
+          ),
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "รหัสผ่าน",
           border:
@@ -78,7 +94,7 @@ class Register extends StatelessWidget {
     final regisButon = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Colors.pinkAccent,
+      color: Colors.green,
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -95,6 +111,7 @@ class Register extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("ลงทะเบียนใช้งานระบบ", style: style),
+        backgroundColor:Colors.green,
       ),
       body: Center(
         child: SingleChildScrollView (
@@ -104,9 +121,9 @@ class Register extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               SizedBox(
-                height: 100.0,
+                height: 150.0,
                 child: Image.asset(
-                  "assets/logos/pnggate.com.png",
+                  "assets/logos/music.png",
                   fit: BoxFit.contain,
                 ),
               ),

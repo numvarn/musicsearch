@@ -53,7 +53,7 @@ class _SplashPageState extends State<SplashPage> {
             SizedBox(
               height: 180.0,
               child: Image.asset(
-                "assets/images/music.png",
+                "assets/logos/music.png",
                 fit: BoxFit.contain,
               ),
             ),
