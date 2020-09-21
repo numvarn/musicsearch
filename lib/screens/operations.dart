@@ -4,12 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as Http;
 import 'package:musicsearch/screens/login_screen.dart';
 import 'package:musicsearch/screens/profile.dart';
+import 'package:musicsearch/utilities/authenFileProcess.dart';
 import 'package:musicsearch/utilities/profileFileProcess.dart';
 import 'package:musicsearch/utilities/sideMenu.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'authenFileProcess.dart';
 
 // Operation Page After login
 class OperationPage extends StatefulWidget {
@@ -66,7 +65,6 @@ class _OperationPageState extends State<OperationPage> {
 
   @override
   Widget build(BuildContext context) {
-
     TextStyle style = GoogleFonts.prompt();
 
     TextStyle mainStyle = GoogleFonts.prompt(
@@ -115,24 +113,25 @@ class _OperationPageState extends State<OperationPage> {
                     child: Padding(
                       padding: EdgeInsets.all(25),
                       child: SizedBox(
-                        height: 120,//MediaQuery.of(context).size.height * 0.15,
+                        height:
+                            120, //MediaQuery.of(context).size.height * 0.15,
                         width: MediaQuery.of(context).size.width,
                         child: Column(
                           children: <Widget>[
                             Text("Sisaket Fight Covid-19", style: mainStyle),
                             SizedBox(height: 20.0),
-                            Text("เราจะร่วมกันผ่านวิกฤติการระบาดโควิด 19 ไปด้วยกัน", style: descStyle),
+                            Text(
+                                "เราจะร่วมกันผ่านวิกฤติการระบาดโควิด 19 ไปด้วยกัน",
+                                style: descStyle),
                             SizedBox(height: 10.0),
                             Text("โดยจังหวัดศรีสะเกษ", style: descStyle),
                           ],
                         ),
                       ),
                     ),
-
                   ),
                 ),
               ),
-                      
               Container(
                 padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                 child: Card(
@@ -151,12 +150,15 @@ class _OperationPageState extends State<OperationPage> {
                     child: Padding(
                       padding: EdgeInsets.all(10),
                       child: SizedBox(
-                        height: 80,//MediaQuery.of(context).size.height * 0.20,
+                        height: 80, //MediaQuery.of(context).size.height * 0.20,
                         width: MediaQuery.of(context).size.width,
                         child: ListTile(
-                          leading: Icon(Icons.account_box, size: 40),//FlutterLogo(),
+                          leading: Icon(Icons.account_box,
+                              size: 40), //FlutterLogo(),
                           title: Text("ข้อมูลส่วนตัว", style: menuHeaderStyle),
-                          subtitle: Text("บันทึกข้อมูลส่วนตัว เพื่อแจ้งให้เจ้าหน้าที่รับทราบและใช้ในกรณีเกิดเหตุฉุกเฉิน", style: menuDesStyle),
+                          subtitle: Text(
+                              "บันทึกข้อมูลส่วนตัว เพื่อแจ้งให้เจ้าหน้าที่รับทราบและใช้ในกรณีเกิดเหตุฉุกเฉิน",
+                              style: menuDesStyle),
                         ),
                       ),
                     ),

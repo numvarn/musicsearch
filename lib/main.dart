@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:musicsearch/screens/login_screen.dart';
 import 'package:musicsearch/utilities/authenFileProcess.dart';
-import 'package:musicsearch/utilities/operations.dart';
+import 'package:musicsearch/screens/operations.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,21 +15,21 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Login UI',
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: SplashPage(), //LoginScreen(),
     );
   }
 }
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+
+class SplashPage extends StatefulWidget {
+  SplashPage({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _SplashPageState createState() => _SplashPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-
+class _SplashPageState extends State<SplashPage> {
   AuthenFileProcess authenticationFile = new AuthenFileProcess();
 
   void initState() {
@@ -39,7 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-
     // Prevent Screen Rotation
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
@@ -73,17 +72,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _checkAuthentication() {
     authenticationFile.readToken().then((val) {
-      if(val == "fail" || val == "{}") {
+      if (val == "fail" || val == "{}") {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => LoginScreen()
-          ),
+          MaterialPageRoute(builder: (context) => LoginScreen()),
         );
       } else {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => OperationPage()
-          ),
+          MaterialPageRoute(builder: (context) => OperationPage()),
         );
       }
     });

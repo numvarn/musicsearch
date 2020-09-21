@@ -2,14 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:musicsearch/screens/login_screen.dart';
+import 'package:musicsearch/screens/operations.dart';
 import 'package:musicsearch/screens/profile.dart';
 import 'package:musicsearch/utilities/profileFileProcess.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
 import 'authenFileProcess.dart';
-import 'operations.dart';
-
-
 
 class NavDrawer extends StatefulWidget {
   NavDrawer({Key key}) : super(key: key);
@@ -41,7 +39,9 @@ class _NavDrawerState extends State<NavDrawer> {
             accountName: Text('$accountName'),
             accountEmail: Text('$email'),
             currentAccountPicture: CircleAvatar(
-              child: FlutterLogo(size: 40.0,),
+              child: FlutterLogo(
+                size: 40.0,
+              ),
               backgroundColor: Colors.white,
             ),
           ),
@@ -60,7 +60,6 @@ class _NavDrawerState extends State<NavDrawer> {
             title: Text('เกี่ยวกับเรา'),
             onTap: () {},
           ),
-          
           ListTile(
             leading: Icon(Icons.account_box),
             title: Text('ประวัติส่วนตัว'),
@@ -88,7 +87,9 @@ class _NavDrawerState extends State<NavDrawer> {
     profile.then((value) {
       var profileJson = json.decode(value);
       setState(() {
-        accountName = profileJson['results'][0]['first_name']+" "+profileJson['results'][0]['last_name'];
+        accountName = profileJson['results'][0]['first_name'] +
+            " " +
+            profileJson['results'][0]['last_name'];
         email = profileJson['results'][0]['email'];
       });
     });

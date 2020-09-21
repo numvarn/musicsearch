@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as Http;
 import 'package:musicsearch/utilities/authenFileProcess.dart';
-import 'package:musicsearch/utilities/operations.dart';
+import 'package:musicsearch/screens/operations.dart';
 import 'package:musicsearch/utilities/profileFileProcess.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key key, this.title}) : super(key: key);
@@ -53,7 +52,8 @@ class _ProfilePageState extends State<ProfilePage> {
   TextEditingController occupationController = new TextEditingController();
 
   TextEditingController officeAddressController = new TextEditingController();
-  TextEditingController officeSubDistrictController = new TextEditingController();
+  TextEditingController officeSubDistrictController =
+      new TextEditingController();
   TextEditingController officeDistrictController = new TextEditingController();
   TextEditingController officeProvinceController = new TextEditingController();
   TextEditingController officePhoneController = new TextEditingController();
@@ -67,15 +67,17 @@ class _ProfilePageState extends State<ProfilePage> {
   initState() {
     super.initState();
   }
-  
+
   Future<String> _getProfile() async {
     //Get user authentication token form auth file
     if (token == null) {
-      profileFileProcess.readProfile().then((profileFile){
+      profileFileProcess.readProfile().then((profileFile) {
         final profileJson = json.decode(profileFile);
         print(profileJson);
         setState(() {
-          profileDisplayName = profileJson['results'][0]['first_name']+" "+profileJson['results'][0]['last_name'];
+          profileDisplayName = profileJson['results'][0]['first_name'] +
+              " " +
+              profileJson['results'][0]['last_name'];
           currentUID = profileJson['results'][0]['id'];
         });
       });
@@ -118,15 +120,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 pro['results'][0]['home_subdistrict'],
                 pro['results'][0]['home_district'],
                 pro['results'][0]['home_province'],
-                pro['results'][0]['mobile_phone']
-            );
+                pro['results'][0]['mobile_phone']);
 
             genderValue = pro['results'][0]['gender'];
-
           });
-        }
-        else {
-          profile = new Profile(currentUID, "ชาย", 35, "", "", "", "", "", "", "", "", "", "", "", "");
+        } else {
+          profile = new Profile(currentUID, "ชาย", 35, "", "", "", "", "", "",
+              "", "", "", "", "", "");
         }
       });
     }
@@ -136,7 +136,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-
     Color hexToColor(String code) {
       return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
     }
@@ -150,8 +149,8 @@ class _ProfilePageState extends State<ProfilePage> {
           labelText: 'สัญญชาติ *',
           hintText: "สัญชาติ",
           border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-      onChanged: (text){
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+      onChanged: (text) {
         profile.nationality = text.trim();
       },
     );
@@ -165,8 +164,8 @@ class _ProfilePageState extends State<ProfilePage> {
           labelText: 'อาชีพ *',
           hintText: "อาชีพ",
           border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-      onChanged: (text){
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+      onChanged: (text) {
         profile.occupation = text.trim();
       },
     );
@@ -175,14 +174,14 @@ class _ProfilePageState extends State<ProfilePage> {
       controller: officeAddressController,
       obscureText: false,
       style: style,
-      maxLines:2,
+      maxLines: 2,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           labelText: 'ที่อยู่ (ที่ทำงาน) *',
           hintText: "ที่อยู่ (ที่ทำงาน)",
           border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-      onChanged: (text){
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+      onChanged: (text) {
         profile.officeAddress = text.trim();
       },
     );
@@ -196,8 +195,8 @@ class _ProfilePageState extends State<ProfilePage> {
           labelText: 'ตำบล (ที่ทำงาน) *',
           hintText: "ตำบล (ที่ทำงาน)",
           border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-      onChanged: (text){
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+      onChanged: (text) {
         profile.officeSubDistrict = text.trim();
       },
     );
@@ -211,8 +210,8 @@ class _ProfilePageState extends State<ProfilePage> {
           labelText: 'อำเภอ (ที่ทำงาน) *',
           hintText: "อำเภอ (ที่ทำงาน)",
           border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-      onChanged: (text){
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+      onChanged: (text) {
         profile.officeDistrict = text.trim();
       },
     );
@@ -226,8 +225,8 @@ class _ProfilePageState extends State<ProfilePage> {
           labelText: 'จังหวัด (ที่ทำงาน) *',
           hintText: "จังหวัด (ที่ทำงาน)",
           border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-      onChanged: (text){
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+      onChanged: (text) {
         profile.officeProvince = text.trim();
       },
     );
@@ -242,8 +241,8 @@ class _ProfilePageState extends State<ProfilePage> {
           labelText: 'เบอร์โทร (ที่ทำงาน) *',
           hintText: "เบอร์โทร (ที่ทำงาน)",
           border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-      onChanged: (text){
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+      onChanged: (text) {
         profile.officePhone = text.trim();
       },
     );
@@ -252,14 +251,14 @@ class _ProfilePageState extends State<ProfilePage> {
       controller: homeAddressController,
       obscureText: false,
       style: style,
-      maxLines:2,
+      maxLines: 2,
       decoration: InputDecoration(
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           labelText: 'ที่อยู่ (บ้าน) *',
           hintText: "ที่อยู่ (บ้าน)",
           border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-      onChanged: (text){
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+      onChanged: (text) {
         profile.homeAddress = text.trim();
       },
     );
@@ -273,8 +272,8 @@ class _ProfilePageState extends State<ProfilePage> {
           labelText: 'ตำบล (บ้าน) *',
           hintText: "ตำบล (บ้าน)",
           border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-      onChanged: (text){
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+      onChanged: (text) {
         profile.homeSubDistrict = text.trim();
       },
     );
@@ -288,8 +287,8 @@ class _ProfilePageState extends State<ProfilePage> {
           labelText: 'อำเภอ (บ้าน) *',
           hintText: "อำเภอ (บ้าน)",
           border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-      onChanged: (text){
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+      onChanged: (text) {
         profile.homeDistrict = text.trim();
       },
     );
@@ -303,8 +302,8 @@ class _ProfilePageState extends State<ProfilePage> {
           labelText: 'จังหวัด (บ้าน) *',
           hintText: "จังหวัด (บ้าน)",
           border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-      onChanged: (text){
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+      onChanged: (text) {
         profile.homeProvince = text.trim();
       },
     );
@@ -323,8 +322,8 @@ class _ProfilePageState extends State<ProfilePage> {
           labelText: 'เบอร์โทรศัพย์มือถือ*',
           hintText: "เบอร์โทรศัพย์มือถือ",
           border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-      onChanged: (text){
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+      onChanged: (text) {
         profile.mobilePhone = text.trim();
       },
     );
@@ -343,8 +342,8 @@ class _ProfilePageState extends State<ProfilePage> {
           labelText: 'อายุ*',
           hintText: "อายุ",
           border:
-          OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-      onChanged: (text){
+              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+      onChanged: (text) {
         profile.age = int.parse(text.trim());
       },
     );
@@ -365,8 +364,8 @@ class _ProfilePageState extends State<ProfilePage> {
           profile.gender = newValue;
         });
       },
-      items: <String>['ชาย', 'หญิง']
-          .map<DropdownMenuItem<String>>((String value) {
+      items:
+          <String>['ชาย', 'หญิง'].map<DropdownMenuItem<String>>((String value) {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(value),
@@ -384,11 +383,8 @@ class _ProfilePageState extends State<ProfilePage> {
         onPressed: () {
           submitProfile();
         },
-        child: Text(
-            "แก้ไขประวัติ",
-            textAlign: TextAlign.center,
-            style: styleButton
-        ),
+        child: Text("แก้ไขประวัติ",
+            textAlign: TextAlign.center, style: styleButton),
       ),
     );
 
@@ -423,14 +419,15 @@ class _ProfilePageState extends State<ProfilePage> {
               mobilePhoneController.text = profile.mobilePhone;
 
               return Center(
-                child: SingleChildScrollView (
+                child: SingleChildScrollView(
                   padding: const EdgeInsets.all(36.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(profileDisplayName,
-                        style: GoogleFonts.prompt(color: hexToColor("#3371ff"), fontSize: 30.0)),
+                          style: GoogleFonts.prompt(
+                              color: hexToColor("#3371ff"), fontSize: 30.0)),
                       SizedBox(height: 25.0),
                       Text("เพศ"),
                       genderField,
@@ -440,7 +437,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       nationalityField,
                       SizedBox(height: 25.0),
                       occupationField,
-
                       SizedBox(height: 25.0),
                       officeAddressField,
                       SizedBox(height: 25.0),
@@ -451,7 +447,6 @@ class _ProfilePageState extends State<ProfilePage> {
                       officeProvinceField,
                       SizedBox(height: 25.0),
                       officePhoneField,
-
                       SizedBox(height: 25.0),
                       homeAddressField,
                       SizedBox(height: 25.0),
@@ -525,7 +520,6 @@ class _ProfilePageState extends State<ProfilePage> {
       } else {
         _showAlertUpdateFail(context);
       }
-
     });
   }
 
@@ -534,21 +528,21 @@ class _ProfilePageState extends State<ProfilePage> {
         context: context,
         barrierDismissible: false,
         builder: (context) => AlertDialog(
-          title: Text("แก้ไขข้อมูลแล้ว"),
-          content: Text("ประวัติสามาชิกของท่านได้ถูกปรับปรุงให้เป็นปัจจุบันแล้ว"),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('รับทราบ'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => OperationPage()),
-                );
-              },
-            )
-          ],
-        )
-    );
+              title: Text("แก้ไขข้อมูลแล้ว"),
+              content: Text(
+                  "ประวัติสามาชิกของท่านได้ถูกปรับปรุงให้เป็นปัจจุบันแล้ว"),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('รับทราบ'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => OperationPage()),
+                    );
+                  },
+                )
+              ],
+            ));
   }
 
   void _showAlertUpdateFail(BuildContext context) {
@@ -556,18 +550,17 @@ class _ProfilePageState extends State<ProfilePage> {
         context: context,
         barrierDismissible: false,
         builder: (context) => AlertDialog(
-          title: Text("เกิดความผิดพลาด"),
-          content: Text("ข้อมูลของคุณถูกยังไม่ถูกบันทึกเข้าระบบ !!"),
-          actions: <Widget>[
-            FlatButton(
-              child: Text('ลองอีกครั้ง'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            )
-          ],
-        )
-    );
+              title: Text("เกิดความผิดพลาด"),
+              content: Text("ข้อมูลของคุณถูกยังไม่ถูกบันทึกเข้าระบบ !!"),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('ลองอีกครั้ง'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            ));
   }
 }
 
@@ -588,6 +581,20 @@ class Profile {
   String homeProvince;
   String mobilePhone;
 
-  Profile(this.uid, this.gender, this.age, this.nationality, this.occupation, this.officeAddress, this.officeSubDistrict, this.officeDistrict, this.officeProvince, this.officePhone, this.homeAddress, this.homeSubDistrict, this.homeDistrict, this.homeProvince, this.mobilePhone);
-
+  Profile(
+      this.uid,
+      this.gender,
+      this.age,
+      this.nationality,
+      this.occupation,
+      this.officeAddress,
+      this.officeSubDistrict,
+      this.officeDistrict,
+      this.officeProvince,
+      this.officePhone,
+      this.homeAddress,
+      this.homeSubDistrict,
+      this.homeDistrict,
+      this.homeProvince,
+      this.mobilePhone);
 }
