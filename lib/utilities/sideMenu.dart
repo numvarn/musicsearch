@@ -46,7 +46,7 @@ class _NavDrawerState extends State<NavDrawer> {
           ),
           ListTile(
             leading: Icon(Icons.home),
-            title: Text('ศรีสะเกษสู้โควิด 19'),
+            title: Text('ค้นหาเพลงด้วยคำร้อง'),
             onTap: () {
               Navigator.push(
                 context,
@@ -56,12 +56,12 @@ class _NavDrawerState extends State<NavDrawer> {
           ),
           ListTile(
             leading: Icon(Icons.description),
-            title: Text('เกี่ยวกับเรา'),
+            title: Text('เกี่ยวกับโปรแกรม'),
             onTap: () {},
           ),
           ListTile(
             leading: Icon(Icons.account_box),
-            title: Text('ประวัติส่วนตัว'),
+            title: Text('ประวัติของฉัน'),
             onTap: () {
               Navigator.push(
                 context,
