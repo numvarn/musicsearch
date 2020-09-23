@@ -202,7 +202,7 @@ class _OperationPageState extends State<OperationPage> {
 
   void getProfileAPI() async {
     if (profileName == "waiting") {
-      var url = "https://ssk-covid19.herokuapp.com/get/myuser";
+      var url = "https://lyric-sskru.herokuapp.com/api/get/myuser";
 
       //Get user authentication token form auth file
       final jsonDec = authenFileProcess.readToken().then((val) {

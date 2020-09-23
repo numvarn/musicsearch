@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:musicsearch/screens/login_screen.dart';
@@ -66,7 +65,7 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   startTime() async {
-    var duration = new Duration(seconds: 3);
+    var duration = new Duration(seconds: 2);
     return new Timer(duration, _checkAuthentication);
   }
 

@@ -6,7 +6,6 @@ import 'package:musicsearch/screens/operations.dart';
 import 'package:musicsearch/screens/profile.dart';
 import 'package:musicsearch/utilities/profileFileProcess.dart';
 import 'package:progress_dialog/progress_dialog.dart';
-
 import 'authenFileProcess.dart';
 
 class NavDrawer extends StatefulWidget {
