@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:http/http.dart' as Http;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:musicsearch/screens/home.dart';
 import 'package:musicsearch/utilities/authenFileProcess.dart';
-import 'package:musicsearch/screens/operations.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 import 'Register.dart';
@@ -222,7 +222,7 @@ class _LoginScreenState extends State<LoginScreen> {
         authenFileProcess.writeToken(data);
 
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => OperationPage()));
+            context, MaterialPageRoute(builder: (context) => SpeechScreen()));
       } else {
         _showAlertLoginFail(context);
         _btnController.stop();

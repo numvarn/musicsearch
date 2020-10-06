@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:musicsearch/screens/home.dart';
 import 'package:musicsearch/screens/login_screen.dart';
-import 'package:musicsearch/screens/operations.dart';
 import 'package:musicsearch/screens/profile.dart';
 import 'package:musicsearch/utilities/profileFileProcess.dart';
 import 'package:progress_dialog/progress_dialog.dart';
@@ -50,7 +50,7 @@ class _NavDrawerState extends State<NavDrawer> {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => OperationPage()),
+                MaterialPageRoute(builder: (context) => SpeechScreen()),
               );
             },
           ),

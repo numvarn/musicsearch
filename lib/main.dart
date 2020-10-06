@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:musicsearch/screens/home.dart';
 import 'package:musicsearch/screens/login_screen.dart';
 import 'package:musicsearch/utilities/authenFileProcess.dart';
-import 'package:musicsearch/screens/operations.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -79,7 +80,7 @@ class _SplashPageState extends State<SplashPage> {
       } else {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => OperationPage()),
+          MaterialPageRoute(builder: (context) => SpeechScreen()),
         );
       }
     });

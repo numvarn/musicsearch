@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as Http;
+import 'package:musicsearch/screens/home.dart';
 import 'package:musicsearch/utilities/authenFileProcess.dart';
-import 'package:musicsearch/screens/operations.dart';
 import 'package:musicsearch/utilities/profileFileProcess.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -537,7 +537,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => OperationPage()),
+                      MaterialPageRoute(builder: (context) => SpeechScreen()),
                     );
                   },
                 )
