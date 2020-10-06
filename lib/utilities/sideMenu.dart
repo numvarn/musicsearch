@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:musicsearch/screens/home.dart';
 import 'package:musicsearch/screens/login_screen.dart';
-import 'package:musicsearch/screens/profile.dart';
 import 'package:musicsearch/utilities/profileFileProcess.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'authenFileProcess.dart';
@@ -58,16 +57,6 @@ class _NavDrawerState extends State<NavDrawer> {
             leading: Icon(Icons.description),
             title: Text('เกี่ยวกับโปรแกรม'),
             onTap: () {},
-          ),
-          ListTile(
-            leading: Icon(Icons.account_box),
-            title: Text('ประวัติของฉัน'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ProfilePage()),
-              );
-            },
           ),
           ListTile(
             leading: Icon(Icons.exit_to_app),
